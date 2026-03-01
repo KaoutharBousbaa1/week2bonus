@@ -11,6 +11,7 @@ load_dotenv(override=True)
 # Ensure your OpenAI key is available from .env file
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 vector_store_id = os.environ.get("vector_store_id", "")
+mcp_url_default = os.environ.get("MCP_URL", "")
 
 # Initialize session state for chat history if it doesn't exist
 if "messages" not in st.session_state:
@@ -24,7 +25,7 @@ if "use_file_search" not in st.session_state:
 if "use_calendar" not in st.session_state:
     st.session_state.use_calendar = False
 if "mcp_url" not in st.session_state:
-    st.session_state.mcp_url = "https://n8n-production-8b43.up.railway.app/mcp/calendar"
+    st.session_state.mcp_url = mcp_url_default
 
 # Function to create agent with selected tools
 async def create_unified_assistant():
