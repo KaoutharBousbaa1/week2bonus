@@ -94,8 +94,9 @@ async def get_assistant_response(question, history):
     
     try:
         # Combine history and current question to provide context
+        today = date.today().strftime("%A, %B %d, %Y")
         context = "\n".join([f"{msg['role']}: {msg['content']}" for msg in history[-5:]])  # Last 5 messages for context
-        prompt = f"Context of our conversation:\n{context}\n\nCurrent question: {question}"
+        prompt = f"[Current date: {today}]\n\nContext of our conversation:\n{context}\n\nCurrent question: {question}"
         
         result = await Runner.run(assistant, prompt)
         return result.final_output
