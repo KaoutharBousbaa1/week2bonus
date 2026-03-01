@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import asyncio
+from datetime import date
 from agents import Agent, Runner, WebSearchTool, FileSearchTool
 from agents.mcp import MCPServerSse
 from dotenv import load_dotenv
@@ -62,8 +63,11 @@ async def create_unified_assistant():
         capabilities.append("access and manage your Google Calendar")
     
     capabilities_text = ", ".join(capabilities) if capabilities else "assist you"
+    today = date.today().strftime("%A, %B %d, %Y")
     
     instructions = f"""You are a helpful assistant that can {capabilities_text}.
+    
+    IMPORTANT: Today's date is {today}. Use this as the reference for "today", "this week", etc.
     
     Always cite your sources when responding to questions. Maintain the conversation context and refer to previous exchanges when appropriate.
     If you don't have enough information to answer a question, say so and suggest what additional information might help.
